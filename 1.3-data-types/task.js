@@ -25,14 +25,20 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     let payment = bodyCredit * (rate + rate / (((1 + rate) ** amountMonths) - 1)); // ежемес платеж
     let totalAmount = payment * amountMonths ; // сумма, кот выплатит клиент
    
-    return totalAmount.toFixed(2);
+    totalAmount = +totalAmount.toFixed(2);
+    return totalAmount;
 }
 
 function getGreeting(name) {
+    "use strict";
     
-    if ((name == '') || (name == undefined) || (name === null) || (name === 'null') || (name === 'undefined') || (name === ' ')) {
+    if ((!name) || (name == typeof (undefined)) || (name === 'null') || (name == `''`)) {
         name = 'Аноним';
-    } 
+    }
+    
+    // if ((name == '') || (name == undefined) || (name === null) || (name === 'null') || (name === 'undefined') || (name === ' ')) {
+    //     name = 'Аноним';
+    // } 
 
     let greeting = `Привет, мир! Меня зовут ${name}`;
     
