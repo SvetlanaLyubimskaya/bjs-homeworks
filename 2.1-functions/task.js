@@ -35,16 +35,10 @@ function showSolutionsMessage(a, b, c) {
 
     if (result.D < 0) {
         console.log(`Уравнение не имеет вещественных корней`);
-        return [];
     } else if (result.D == 0) {
-        let x1 = - b / (2 * a);
-        console.log(`Уравнение имеет один корень x1 = ${x1}`);
-        return [x1];
+        console.log(`Уравнение имеет один корень x1 = ${result.roots[0]}`);
     } else if (result.D > 0) {
-        let x1 = (-b + Math.sqrt(D)) / (2 * a);
-        let x2 = (-b - Math.sqrt(D)) / (2 * a);
-        console.log(`Уравнение имеет два корня. x1 = ${x1}, x2 = ${x2}`);
-        return [x1,x2];
+        console.log(`Уравнение имеет два корня. x1 = ${result.roots[0]}, x2 = ${result.roots[1]}`);
     }
 
 }
