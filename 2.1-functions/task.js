@@ -33,14 +33,14 @@ function showSolutionsMessage(a, b, c) {
     console.log(`Вычисляем корни квадратного уравнения ${a} * x ** 2 + ${b} * x + ${c}`);
     console.log(`Значение дискриминанта: ${D}`);
 
-    if (D < 0) {
+    if (result.D < 0) {
         console.log(`Уравнение не имеет вещественных корней`);
         return [];
-    } else if (D == 0) {
+    } else if (result.D == 0) {
         let x1 = - b / (2 * a);
         console.log(`Уравнение имеет один корень x1 = ${x1}`);
         return [x1];
-    } else if (D > 0) {
+    } else if (result.D > 0) {
         let x1 = (-b + Math.sqrt(D)) / (2 * a);
         let x2 = (-b - Math.sqrt(D)) / (2 * a);
         console.log(`Уравнение имеет два корня. x1 = ${x1}, x2 = ${x2}`);
@@ -66,11 +66,12 @@ function getAverageScore(data) {
     let count = 0;
 
     for (let prop in data) {
-        result[prop] = getAverageScore(data[prop]);
+        result[prop] = getAverageMark(data[prop]);
         sumResult += result[prop];
         count++;
-        result.average = sumResult / count;
+        
     }
+    result.average = sumResult / count;
 
     return result;
 }
@@ -105,50 +106,48 @@ console.log(getAverageScore({
 
 /////////////////////////////
 //Задача 3
-// let firstName;
-// let lastname;
-// let aaa;
-// let bbb;
-// let secretData;
-// let secret;
+let firstName;
+let lastname;
+let aaa;
+let bbb;
+let secretData;
+let secret;
 
-// function getPersonData(secretData) {
+function getPersonData(secretData) {
 
-//     secretData = {
-//         firstName: 'Эмильо',
-//         lastName: 'Родриго ',
-//     }
+    secretData = {
+        firstName: getDecodedValue(secretData.aaa),
+        lastName: getDecodedValue(secretData.bbb),
+    }
 
-//     let resultPerson = getDecodedValue();
-//     return resultPerson;
-// }
+    return secretData;
+}
 
-// let getDecodedValue;
+function getDecodedValue(secret) {//вспом функция
 
-// function getDecodedValue(secret) {//вспом функция
+    if (secret == 1) {
+        return 'Эмильо';
+    } else if ( secret == 0) {
+        return 'Родриго';
+    }
+}
 
-//     secret = {
-//         aaa: 1,
-//         bbb: 0,
-//     }
-// }
+console.log(getPersonData({
+    aaa: 0,
+    bbb: 0,
+}));
 
-// console.log(getPersonData({
-//     aaa: 0,
-//     bbb: 0,
-// }));
+console.log(getPersonData({
+    aaa: 0,
+    bbb: 1,
+}));
 
-// console.log(getPersonData({
-//     aaa: 0,
-//     bbb: 1,
-// }));
+console.log(getPersonData({
+    aaa: 1,
+    bbb: 0,
+}));
 
-// console.log(getPersonData({
-//     aaa: 1,
-//     bbb: 0,
-// }));
-
-// console.log(getPersonData({
-//     aaa: 1,
-//     bbb: 1,
-// }));
+console.log(getPersonData({
+    aaa: 1,
+    bbb: 1,
+}));
