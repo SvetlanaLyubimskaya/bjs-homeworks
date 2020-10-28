@@ -90,26 +90,24 @@ class Library {
         }
     }
 
-    findBookBy(type, value) { // не находит книгу.. Uncaught TypeError: Cannot read property 'name' of null
+    findBookBy(type, value) { 
         for (let i = 0; i < this.books.length; i++) {
-            if (this.books[i].type === value) {
+            if (this.books[i][type] === value) {
                 return this.books[i];
-            } else {
-                return null;
-            }
+            } 
         }
+
+        return null;
     }
 
     giveBookByName(bookName) { 
         for (let i = 0; i < this.books.length; i++) {
             if (this.books[i].name === bookName) {
-                //return delete this.books[i].book;
-                return this.books.splice(i, 1); // как удалить одну нужную книгу из массива???
-                // return this.books.length - i;
-            } else {
-                return null;
-            }
-        }    
+                return this.books.splice(i, 1)[0]; 
+            } 
+        } 
+        
+        return null;
     }
 }
 
@@ -121,7 +119,7 @@ library.addBook(new NovelBook("Герберт Уэллс", "Машина вре�
 library.addBook(new Magazine("Мурзилка", 1924, 60));
 
 console.log(library.findBookBy("name", "Властелин колец")); //null
-console.log(library.findBookBy("releaseDate", 1924).name); //"Мурзилка"  Uncaught TypeError: Cannot read property 'name' of null
+console.log(library.findBookBy("releaseDate", 1924).name); //"Мурзилка"  
 
 console.log("Количество книг до выдачи: " + library.books.length); //Количество книг до выдачи: 4
 library.giveBookByName("Машина времени");
@@ -157,7 +155,7 @@ console.log(librarySecond.findBookBy("releaseDate", 1919).name); //"Красно
 //4
 console.log("Количество книг до выдачи: " + librarySecond.books.length);
 librarySecond.giveBookByName("Алиса в стране чудес");
-console.log(librarySecond.giveBookByName("Алиса в стране чудес")); //не находит
+// console.log(librarySecond.giveBookByName("Алиса в стране чудес")); //не находит
 console.log("Количество книг после выдачи: " + librarySecond.books.length);
 
 //5
