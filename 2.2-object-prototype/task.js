@@ -1,34 +1,21 @@
+//////////////////задача 1
 //String.prototype.isPalindrome - для задачи №1
 
-function isPalindrome(str) {
+// console.log('А роза упала на лапу Азора');
+// console.log('Иван Васильевич меняет профессию');
+// console.log('еле-еле шёл Емеля!');
+// console.log('еле-еле');
+// console.log('сел лес');
+// console.log('Ад гонит иногда');
 
-    this.str = str;
-
-    if (strReverse === str) {
-        return true;
-    } else {
-        return false;
-    }
-
-    // console.log('А роза упала на лапу Азора');
-    // console.log('Иван Васильевич меняет профессию');
-    // console.log('еле-еле шёл Емеля!');
-    // console.log('еле-еле');
-    // console.log('сел лес');
-    // console.log('Ад гонит иногда');
-
-}
 
 String.prototype.isPalindrome = function() {
     
-    this.str = this.toLowerCase().replace(/\s/g, '');
+    const str = this.toLowerCase().replace(/\s/g, '');
 
-    return strReverse = this.split('').reverse().join(''); 
+    return str === str.split('').reverse().join(''); 
 
-    // return strReverse;
 }
-
-String.prototype = isPalindrome;
 
 //////////////////задача 2
 function getAverageMark(marks) {
@@ -57,12 +44,13 @@ function checkBirthday(birthday) {
     const today = new Date();
     console.log(+today);
     
-    
-    birthday = Date.parse(birthday);
+    // birthday = Date.parse(birthday);
+    const parsedBirthday = new Date(birthday).getTime();
     console.log(+birthday);
 
-    let diff = ((+today) - (+birthday));
-    let age = diff / 31536000000;
+    let diff = ((+today) - parsedBirthday);
+    let age = diff / 31557600000; //365.25*24*60*60*1000
+    
     verdict = (age > 18) ? true: false; 
 
     return verdict;
