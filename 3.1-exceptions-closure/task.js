@@ -2,9 +2,9 @@
 
 function parseCount(value) {
 
-    let result = Number.parseInt(value, Number);
+    let result = Number.parseInt(value, 10);
 
-    if (isNaN(result) == true)  {
+    if (isNaN(result))  {
         throw new Error("Невалидное значение");
     }
 
@@ -13,15 +13,12 @@ function parseCount(value) {
 
 function validateCount(value) {
 
-    let valueValidate;
-
     try { 
-        valueValidate = parseCount(value);
+        return parseCount(value);
     } catch (err) {
         return err;
     }
 
-    return valueValidate;
 }
 
 
@@ -32,39 +29,35 @@ class Triangle {
         this.a = a;
         this.b = b;
         this.c = c;
+
+        if (((a + b) < c) || ((a + c) < b) || ((c + b) < a)) {
+            throw new Error (`Треугольник с такими сторонами не существует`);
+        }  
+
     }
 
-    // if(((this.a + this.b) < this.c) || ((this.a + this.c) < this.b) || ((this.c + this.b) < this.a)) {
-    //     throw new Error(`Треугольника с такими сторонами не существует`);
-    // }  // где нужно написать это условие? в каком методе?
-
-
     getPerimeter() {
-        let P = this.a + this.b + this.c;
-        return P; 
+
+        return this.a + this.b + this.c; 
     }
 
     getArea() {
-        let S;
-        let p;
-
-        p = (this.a + this.b + this.c) / 2; 
-        S = Math.sqrt(p*(p - this.a)*(p - this.b)*(p - this.c)); 
+     
+        let p = (this.a + this.b + this.c) / 2; 
+        let S = Math.sqrt(p*(p - this.a)*(p - this.b)*(p - this.c)); 
         
-        S = +S.toFixed(3);
-        return S;
+        return +S.toFixed(3);
     }
 
 }
 
 function getTriangle(a, b, c) { // Аргументами функции являются 3 значения длин сторон
-    let result;
 
     try {// Попытайтесь вернуть новый объект треугольника
-        const triangle1 = new Triangle(a,b,c);
-        return triangle1;
+        return new Triangle(a, b, c);
+
     } catch (e) { // В случае перехвата исключения возвращайте объект с двумя методами getArea и getPerimeter, которые возвращают строку: "Ошибка! Треугольник не существует".
-        return result = {
+        return  {
             getPerimeter: () => "Ошибка! Треугольник не существует",
             getArea: () => "Ошибка! Треугольник не существует"
         }
