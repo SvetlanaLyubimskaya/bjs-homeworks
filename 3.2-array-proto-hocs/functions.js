@@ -31,14 +31,12 @@ console.log(hasReliableWeapons(300));
 
 
 function getReliableWeaponsNames(durability) { //которая принимает значение прочности и возвращает имена оружий, которые прочней полученного значения.
-    const result4 = weapons.filter((weapon) => weapon.durability > durability); // создаем новый массив прочность > знач
-    return result4.map((weapon) => weapon.name); // из полученного массива возвращаем имена
+    return weapons.filter((weapon) => weapon.durability > durability).map((weapon) => weapon.name); // создаем новый массив прочность > знач и из полученного массива возвращаем имена
 }
 console.log(getReliableWeaponsNames(200));
 
 
 function getTotalDamage() { //которая вернёт общую сумму урона всех оружий.
-    const result5 = weapons.map((weapon) => weapon.attack);
-    return result5.reduce((sum, attack) => sum + attack);
+    return weapons.map((weapon) => weapon.attack).reduce((sum, attack) => sum + attack);
 } 
 console.log(getTotalDamage());
