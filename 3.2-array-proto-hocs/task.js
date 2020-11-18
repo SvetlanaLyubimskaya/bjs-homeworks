@@ -11,11 +11,7 @@ function sum(...args) {
     }, 0);
 }
 function compareArrays(arr1, arr2) {
-    if (arr1.length === arr2.length && arr1.every((elem, index) => elem === arr2[index])) {
-        return true;
-    } else {
-        return false;
-    }
+    return (arr1.length === arr2.length && arr1.every((elem, index) => elem === arr2[index]));
 }
 
 console.log(compareArrays([8, 9], [6])); // false, разные значения
@@ -28,21 +24,33 @@ function memorize(fn, limit) {
     const memory = [];
 
     return function(...args) {
+        
+        // С помощью функции find найдите в массиве memory, объект, 
+        // у которого в свойстве args находится такой же массив, 
+        // как и массив аргументов с которыми была вызвана возвращаемая memorize функция.
+        const argsFind = memory.find(item => compareArrays(item.args, args)); // undefined
+        console.log(argsFind);
 
-        const argsFind = memory.find((item) => compareArrays(item.args, args)); // в аргументы надо передать два массива
-
-        if (argsFind == true) { //Если история о вызове функции fn найдена
+        if (argsFind) { //Если история о вызове функции fn найдена
             console.log(argsFind.result);
             return argsFind.result; // функция должна вернуть свойство result найденного объекта.
         } 
 
         const result = fn(...args); // Вычислить результат fn с переданными аргументами
-        memory.push( {args: [args], result: result} ); // Добавить запись о вызове fn в memory.
+        console.log(args); // выводит массив аргументов [2, 3]
+
+        // let obj = {};
+        // obj.args = args;
+        // obj.result = result;
+        // memory.push(obj); // тот же результат(
+        // memory.push({ args: Array.from(arguments), result: result});
+        memory.push({args: args, result: result}); // Добавить запись о вызове fn в memory.
 
         if (memory.length > limit) { // При количестве элементов memory более limit(5) удалить лишнее.
             memory.shift();
         } 
         
+        console.log(memory);
         return result; // Вернуть результат fn с переданными аргументами.
     }
 }
@@ -57,56 +65,5 @@ console.log(sum(3, 4)); // 7
  */
 console.log(mSum(3, 4)); // 7
 
-
-
-
-// // 2.1 Возвращение функции
-// // Напишите функцию memorize, которая должна возвращать другую функцию.
-// // Сначала пустую функцию.Это важный момент, так как если это у вас не получается, 
-// // значит вы не усвоили материал занятия функций высшего порядка.
-// // function memorize() {
-// //     return () => {};
-// // }
-// // let resultFunction = memorize();
-// // resultFunction();
-// // console.log(resultFunction()); // <= должно вызываться без ошибок
-
-// // 2.2 Получение аргументов
-// // Переделайте возвращаемую функцию, чтобы она принимала набор аргументов 
-// // и выводила их на консоль.Тоесть выполнение должно быть примерно такое:
-
-// function memorize() {
-//     return (a,b,c,d) => { 
-//         console.log(a,b,c,d);
-//     }
-// }
-// let resultFunction = memorize();
-// resultFunction(1, 2, 3, 4); // <= должно вывести: 1,2,3,4
-
-
-// // 2.3 Вычисление функции
-// // Переделайте memorize, чтобы она принимала функцию, 
-// // возвращённой функции выполнять эту полученную функцию
-// function memorize(fn) {
-//     return fn1 = () => fn;
-// } 
-// resultFunction = memorize(fn);
-
-// resultFunction(2); // <= должно вывести: 4
-// resultFunction(5); // <= должно вывести: 25
-
-
-// // 2.4 Поиск посчитанного элемента
-// // В memorize сделайте массив с некоторыми значениями объектов.
-// // Например возьмите тот же пример из задания:
-// function memorize() {
-//     const memory = [
-//         {
-//             args: [3, 4],
-//             result: 7
-//         },
-//         {
-//             args: [1, 3],
-//             result: 4
-//         }
-//     ] 
+console.log(sum(2, 3, 4));
+console.log(mSum(2, 3, 4));
