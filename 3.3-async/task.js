@@ -17,7 +17,7 @@ class AlarmClock {
     }
 
     removeClock(id) {
-        const removeId = this.alarmCollection.filter(elem => elem.timerId === id); 
+        const removeId = this.alarmCollection.findIndex(elem => elem.id === id); 
         if (removeId) {
             this.alarmCollection.splice(removeId, 1);
         }
@@ -26,26 +26,39 @@ class AlarmClock {
 
     getCurrentFormattedTime() {
         const today = new Date(); //возвращает текущее время в строковом формате HH:MM
-        let timeNow = (today.getHours() + ':' + today.getMinutes());
+        const hours = today.getHours();
+        const minutes = today.getMinutes();
+
+        if (hours < 10) {
+            hours = '0' + hours;
+        }
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+
+        let timeNow = (hours + ':' + minutes);
         return timeNow;
     }
 
     start() {
+        const timeNow = this.getCurrentFormattedTime;
+
         function checkClock(time) {
-            const timeNow = this.getCurrentFormattedTime();
-            if (timeNow == time) { //если текущее время совпадает со временем звонка
-                return callback(); // то вызывайте колбек.
+            if (timeNow() == time) { //если текущее время совпадает со временем звонка
+                return time.callback(); // то вызывайте колбек.
             }
         }
 
-        if (timerId == null) {
-            this.timerId = setInterval(() => this.alarmCollection.forEach(elem => checkClock(elem.timerId)));
-        }
-        
+        if (this.timerId == null) {
+            this.timerId = setInterval(() => {
+                this.alarmCollection.forEach(elem => checkClock(elem));
+            }, 60000); // таймер через минуту
+        } 
+         
     }
 
     stop() {
-        if (timerId) {
+        if (this.timerId) {
             clearInterval(this.timerId);
         }
     }
@@ -74,6 +87,8 @@ phoneAlarm.removeClock(3); // удалил третий звонок
 
 phoneAlarm.printAlarms(); // напечатал 3 будильника
 
-phoneAlarm.addClock('09:10', () => console.log('Позавтракать уже не успеешь.'), 1);// id существует, но ошибку не вывел
+phoneAlarm.addClock('09:10', () => console.log('Позавтракать уже не успеешь.'), 1);// id существует, ошибку вывел
 
 phoneAlarm.start();
+
+phoneAlarm.clearAlarms();
