@@ -9,7 +9,7 @@ class AlarmClock {
             throw new Error('Невозможно идентифицировать будильник. Параметр id не передан'); 
         } 
         if (this.alarmCollection.some(elem => elem.id === id)) { 
-            console.error('Будильник с таким id уже существует');
+            return console.error('Будильник с таким id уже существует');
         } 
         
         this.alarmCollection.push({ time, callback, id });
@@ -44,7 +44,7 @@ class AlarmClock {
         const timeNow = this.getCurrentFormattedTime;
 
         function checkClock(time) {
-            if (timeNow() == time) { //если текущее время совпадает со временем звонка
+            if (timeNow() == alarmCollection.time) { //если текущее время совпадает со временем звонка
                 return time.callback(); // то вызывайте колбек.
             }
         }
@@ -61,6 +61,7 @@ class AlarmClock {
         if (this.timerId) {
             clearInterval(this.timerId);
         }
+        this.timerId = null;
     }
 
     printAlarms() {
@@ -71,6 +72,7 @@ class AlarmClock {
 
     clearAlarms() {
         clearInterval(this.timerId);
+        this.alarmCollection = [];
     }
 
 }
