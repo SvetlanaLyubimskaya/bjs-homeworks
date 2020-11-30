@@ -44,7 +44,7 @@ class AlarmClock {
         const timeNow = this.getCurrentFormattedTime;
 
         function checkClock(time) {
-            if (timeNow() == alarmCollection.time) { //если текущее время совпадает со временем звонка
+            if (timeNow() == time.time) { //если текущее время совпадает со временем звонка
                 return time.callback(); // то вызывайте колбек.
             }
         }
